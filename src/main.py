@@ -56,12 +56,17 @@ def post_lb():
 
         stars_str = ""
 
-        for day in member["completion_day_level"]:
-            match len(member["completion_day_level"][day]):
-                case 0:
-                    stars_str += " "
+        max = datetime.now().day+1 if datetime.now().month == 12 else 26
+        for day in range(1, max):
+            _day = member["completion_day_level"].get(str(day), None)
+
+            if not _day:
+                stars_str += "🞴"
+                continue
+
+            match len(_day):
                 case 1:
-                    stars_str += "🞴"
+                    stars_str += "[2;34m🞴[0;34m[0m[2;34m[0m"
                 case 2:
                     stars_str += "[2;33m🞴[0;33m[0m[2;33m[0m"
 
