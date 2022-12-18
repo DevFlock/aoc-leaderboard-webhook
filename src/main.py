@@ -118,7 +118,7 @@ def post_lb():
         req = requests.post(WEBHOOK_URL, json=webhook_data)
 
     if req.status_code != 200:
-        print(f"Status code not 200: {req.status_code} {req.reason}")
+        print(f"Status code not 200: {req.status_code} {req.reason} {req.content}")
     
     else:
         print(f"Leaderboard patch request {req.status_code} {req.reason}") 
