@@ -51,7 +51,8 @@ def post_lb():
     data = get_data()
 
     leaderboard = []
-    for member in data["members"]:
+    for index, member in enumerate(data["members"]):
+        if index >= 10: break
         member = data["members"][member]
 
         stars_str = ""
@@ -89,7 +90,7 @@ def post_lb():
             .replace(score+'--', "[2;31m"+score+"[0;31m[0m[2;31m[0m")\
             .replace(stars+'--', "[2;31m"+stars+"[0;31m[0m[2;31m[0m")
     
-    print("\n".join(out))
+    # print("\n".join(out))
 
     now = datetime.now()
     day = str(now.day)
@@ -112,6 +113,8 @@ def post_lb():
         ]
     }
 
+    print(webhook_data)
+
     if MESSAGE_ID: 
         req = requests.patch(WEBHOOK_URL + f"/messages/{MESSAGE_ID}", json=webhook_data)
     else:
@@ -121,7 +124,7 @@ def post_lb():
         print(f"Status code not 200: {req.status_code} {req.reason} {req.content}")
     
     else:
-        print(f"Leaderboard patch request {req.status_code} {req.reason}") 
+        print(f"Leaderboard patch request {req.status_code} {req.reason}")
 
 post_lb()
 
