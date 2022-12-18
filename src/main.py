@@ -7,7 +7,7 @@ import time
 
 # Makes sure that when developing, you do need keep
 # spamming the api with requests.
-DEV_MODE = True
+DEV_MODE = False
 
 # Interval between editing in minutes 
 POST_DELAY = (30 * 60) # 30 minutes
@@ -90,7 +90,7 @@ def post_lb():
             .replace(score+'--', "[2;31m"+score+"[0;31m[0m[2;31m[0m")\
             .replace(stars+'--', "[2;31m"+stars+"[0;31m[0m[2;31m[0m")
     
-    # print("\n".join(out))
+    print("\n".join(out))
 
     now = datetime.now()
     day = str(now.day)
@@ -112,8 +112,6 @@ def post_lb():
             }
         ]
     }
-
-    print(webhook_data)
 
     if MESSAGE_ID: 
         req = requests.patch(WEBHOOK_URL + f"/messages/{MESSAGE_ID}", json=webhook_data)
